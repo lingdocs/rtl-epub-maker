@@ -14,8 +14,9 @@ COPY . .
 RUN npm run build
 
 # Production image, copy all the files and run next
-# or pandoc/core
-FROM pandoc/core AS runner
+# or pandoc/core@alpine
+# FROM pandoc/core AS runner
+FROM alpine:latest AS runner
 RUN apk add nodejs npm
 WORKDIR /app
 
