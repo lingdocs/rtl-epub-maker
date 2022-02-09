@@ -16,8 +16,13 @@ RUN npm run build
 # Production image, copy all the files and run next
 # or pandoc/core@alpine
 # FROM pandoc/core AS runner
-FROM alpine:latest AS runner
-RUN apk add nodejs npm
+FROM ubuntu AS runner
+RUN DEBIAN_FRONTEND=noninteractive apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl pandoc
+RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt install nodejs
+
 WORKDIR /app
 
 # You only need to copy next.config.js if you are NOT using the default configuration
