@@ -4,7 +4,10 @@ Easily create EPUB e-book files with proper RTL support
 
 ## Running Locally
 
-Requires [pandoc](https://pandoc.org/installing.html)
+Requires
+
+- Node.js 12.22.0 or later
+- [pandoc](https://pandoc.org/installing.html)
 
 ```
 npm install
@@ -13,7 +16,7 @@ npm run dev
 
 ### With Docker
 
-Or, you can run the docker image. (Only available for `linux/amd64` architectures.)
+Or, you can just run the docker image with pandoc and everything included.
 
 ```
 docker compose up

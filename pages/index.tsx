@@ -41,14 +41,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="mt-3">RTL EPUB Maker 📚</h1>
-      <p className="lead mb-4">Easily create EPUB e-book files with proper RTL support</p>
+      <p className="lead mb-4">Easily create EPUB e-book files with proper RTL support (🚧 in progress 👷)</p>
       <DocReceiver handleReceiveText={handleReceiveText}/>
       <div className="mt-3">
         <label htmlFor="mdTextarea" className="form-label">Markdown Content</label>
         <textarea spellCheck="false" dir="rtl" ref={mdRef} className="form-control" id="mdTextarea" rows={15} />
       </div>
       <div style={{ textAlign: "right" }}>
-        <button type="button" className="btn btn-sm btn-light mt-2" onClick={clearText}>Clear</button>
+        <button type="button" className="btn btn-sm btn-light mt-2" onClick={clearText}>Create .epub</button>
       </div>
       <BookInfoInput handleSubmit={handleSubmit} />
       <div className="text-center mt-4 text-muted">
