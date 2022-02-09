@@ -4,7 +4,9 @@ Easily create EPUB e-book files with proper RTL support
 
 ## Running Locally
 
-Requires
+### With Node
+
+requires:
 
 - Node.js 12.22.0 or later
 - [pandoc](https://pandoc.org/installing.html)

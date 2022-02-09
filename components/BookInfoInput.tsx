@@ -98,7 +98,7 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
           // @ts-ignore
           options={availableFieldsOptions}
         />
-        <button onClick={submit} type="button" className="btn btn-primary my-4">Submit</button>
+        <button onClick={submit} type="button" className="btn btn-primary my-4">Create .epub</button>
     </div>
 }
 

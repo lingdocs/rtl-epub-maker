@@ -48,7 +48,7 @@ const Home: NextPage = () => {
         <textarea spellCheck="false" dir="rtl" ref={mdRef} className="form-control" id="mdTextarea" rows={15} />
       </div>
       <div style={{ textAlign: "right" }}>
-        <button type="button" className="btn btn-sm btn-light mt-2" onClick={clearText}>Create .epub</button>
+        <button type="button" className="btn btn-sm btn-light mt-2" onClick={clearText}>Clear</button>
       </div>
       <BookInfoInput handleSubmit={handleSubmit} />
       <div className="text-center mt-4 text-muted">
