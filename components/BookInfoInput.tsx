@@ -85,7 +85,7 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
             <input multiple={false} ref={coverRef} className="form-control" type="file" id="cover-file" accept="image/jpeg,image/png"/>
         </div>
         {fields.map((field) => (
-            <div className="mb-2">
+            <div className="mb-2" key={field}>
                 <label htmlFor={field} className="form-label d-flex flex-row align-items-center">
                     {!requiredFields.includes(field) && <span className="me-2">
                         <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => handleRemoveField(field)}>
@@ -110,7 +110,7 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
           options={availableFieldsOptions}
         />
         <LanguageSelect value={state.lang} onChange={handleLanguageChange} />
-        <button onClick={submit} type="button" className="btn btn-primary my-4">Create .epub</button>
+        <button onClick={submit} type="button" className="btn btn-lg btn-primary my-4">Create .epub</button>
     </div>
 }
 
