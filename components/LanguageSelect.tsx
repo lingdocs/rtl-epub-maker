@@ -46,7 +46,6 @@ function LanguageSelect({ value, onChange }: {
             <label htmlFor="otherLang" className="form-label d-flex flex-row align-items-center">
                 <span>Custom <a href="https://www.w3.org/International/articles/language-tags/" target="_blank" rel="noreferrer">IETF BCP 47</a> Language Code</span>
             </label>
-            {/* TODO: for some reason can't use value={value} with this - but it still works */}
             <input onChange={(e) => onChange(e.target.value)} type="text" className="form-control" id="otherLang" />
         </div>}
     </div>;
