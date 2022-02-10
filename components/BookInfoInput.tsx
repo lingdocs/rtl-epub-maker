@@ -80,8 +80,6 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
             ...state,
             ...baseSettings,
         };
-        console.log({ frontmatter });
-        return;
         handleSubmit({
             frontmatter,
             cover,

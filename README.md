@@ -2,7 +2,7 @@
 
 Easily create EPUB e-book files with proper RTL support.
 
-This is a web app that uses [pandoc](https://pandoc.org) to create .epub files for e-books in RTL languages. Making RTL e-books can be tricky. This tries app tries to simplify the process as much as possible, so that anyone can make them.
+This is a web app that uses [pandoc](https://pandoc.org) to create .epub files for e-books in RTL languages. Making e-books for right-to-left languages can be tricky. This tries app tries to simplify the process as much as possible, so that anyone can make them.
 
 ### [Try it live - RTL EPUB Maker 📚](https://rtl-epub-maker.lingdocs.com)
 
