@@ -66,7 +66,6 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
         });
     }
     return <div style={{ maxWidth: "500px" }}>
-        <h4>Book Metadata</h4>
         <div className="my-3">
             <label htmlFor="cover-file" className="form-label">cover image <span className="text-muted">(.jpg or .png less than 5mb)</span></label>
             <input multiple={false} ref={coverRef} className="form-control" type="file" id="cover-file" accept="image/jpeg,image/png"/>

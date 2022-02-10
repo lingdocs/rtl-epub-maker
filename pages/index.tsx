@@ -6,6 +6,7 @@ import DocReceiver from "../components/DocReceiver";
 import { bookRequest } from "../lib/fetchers";
 
 // TODO: Make Title Required
+// TODO: Have author field in there
 // TODO: Allow Word File straight w/ images etc upload
 // TDOO: Add language selection option (Pashto, Arabic, Farsi, Urdu)
 
@@ -42,6 +43,7 @@ const Home: NextPage = () => {
       </Head>
       <h1 className="mt-3">RTL EPUB Maker 📚</h1>
       <p className="lead mb-4">Easily create EPUB e-book files with proper RTL support (🚧 in progress 👷)</p>
+      <h4>Book Content</h4>
       <DocReceiver handleReceiveText={handleReceiveText}/>
       <div className="mt-3">
         <label htmlFor="mdTextarea" className="form-label">Markdown Content</label>
@@ -50,6 +52,7 @@ const Home: NextPage = () => {
       <div style={{ textAlign: "right" }}>
         <button type="button" className="btn btn-sm btn-light mt-2" onClick={clearText}>Clear</button>
       </div>
+      <h4>Book Metadata</h4>
       <BookInfoInput handleSubmit={handleSubmit} />
       <div className="text-center mt-4 text-muted">
         <p className="lead">Made by <a className="em-link" href="https://lingdocs.com">LingDocs.com</a></p>
