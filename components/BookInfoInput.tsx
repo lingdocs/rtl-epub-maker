@@ -1,5 +1,6 @@
 import { ChangeEvent, useState, useRef } from "react";
 import Select from "react-select";
+import LanguageSelect from "./LanguageSelect";
 
 const requiredFields = [
     "title",
@@ -20,8 +21,7 @@ type Option = {
     label: string,
 };
 
-const baseSettings = {
-    language: "ps-AF",  
+const baseSettings = { 
     dir: "rtl",
     "page-progression-direction": "rtl",
 };
@@ -55,6 +55,21 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
             [name]: value,
         }));
     }
+    function handleLanguageChange(lang: string | null) {
+        setState(s => {
+            if (!lang) {
+                delete s.lang;
+                delete s.language;
+                return s
+            }
+            return {
+                ...s,
+                // TODO: using both, but which is proper/necessary?
+                lang,
+                language: lang,
+            };
+        });
+    }
     function submit() {
         const cover = coverRef.current.files[0] as (File | undefined);
         handleSubmit({
@@ -65,24 +80,24 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
             cover,
         });
     }
+    console.log(state);
+    console.log("will render");
     return <div style={{ maxWidth: "500px" }}>
         <div className="my-3">
             <label htmlFor="cover-file" className="form-label">cover image <span className="text-muted">(.jpg or .png less than 5mb)</span></label>
             <input multiple={false} ref={coverRef} className="form-control" type="file" id="cover-file" accept="image/jpeg,image/png"/>
         </div>
         {fields.map((field) => (
-            <div key={field} className="d-flex flex-row align-items-end mb-2">
-                <div className="col-auto" style={{ width: "100%" }}>
-                    <label htmlFor={field} className="form-label d-flex flex-row align-items-center">
-                        {!requiredFields.includes(field) && <span className="me-2">
-                            <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => handleRemoveField(field)}>
-                                X
-                            </button>
-                        </span>}
-                        <span>{field}</span>
-                    </label>
-                    <input onChange={handleFieldChange} type="text" className="form-control" id={field} name={field} value={state[field]} />
-                </div>
+            <div className="mb-2">
+                <label htmlFor={field} className="form-label d-flex flex-row align-items-center">
+                    {!requiredFields.includes(field) && <span className="me-2">
+                        <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => handleRemoveField(field)}>
+                            X
+                        </button>
+                    </span>}
+                    <span>{field}</span>
+                </label>
+                <input onChange={handleFieldChange} type="text" className="form-control" id={field} name={field} value={state[field]} />
             </div>
         ))}
         <div className="mt-4 mb-2">add fields:</div>
@@ -97,6 +112,7 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
           // @ts-ignore
           options={availableFieldsOptions}
         />
+        <LanguageSelect value={state.lang} onChange={handleLanguageChange} />
         <button onClick={submit} type="button" className="btn btn-primary my-4">Create .epub</button>
     </div>
 }

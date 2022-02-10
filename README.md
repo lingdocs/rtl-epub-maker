@@ -4,7 +4,7 @@ Easily create EPUB e-book files with proper RTL support.
 
 This is a web app that uses [pandoc](https://pandoc.org) to create .epub files for e-books in RTL languages. Making RTL e-books can be tricky. This tries app tries to simplify the process as much as possible, so that anyone can make them.
 
-[Try it live - RTL EPUB Maker](https://rtl-epub-maker.lingdocs.com)
+### [Try it live - RTL EPUB Maker 📚](https://rtl-epub-maker.lingdocs.com)
 
 ## Running
 
@@ -39,7 +39,7 @@ If you are using `linux/amd64` architecture you can just run the [the docker ima
 docker compose up
 ```
 
-If you are using an architecture other than `linux/amd64` you will need to build your own Docker image.
+If you are using an architecture other than `linux/amd64` you will need to build your own docker image.
 
 ```sh
 docker build . -t rtl-epub-maker
@@ -52,4 +52,4 @@ The app will be served on `http://localhost:3001`. Add a reverse proxy with SSL 
 
 ---
 
-Code is licensed under a [MIT License](https://github.com/lingdocs/rtl-epub-maker/blob/master/LICENSE). Contributions are welcome.
+Code is licensed under an [MIT License](https://github.com/lingdocs/rtl-epub-maker/blob/master/LICENSE). Contributions are welcome.
