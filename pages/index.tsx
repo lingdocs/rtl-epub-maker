@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import Head from "next/head";
 import BookInfoInput from "../components/BookInfoInput";
 import DocReceiver from "../components/DocReceiver";
 import { bookRequest } from "../lib/fetchers";
+import FormatGuideModal from "../components/FormatGuideModal";
 
 // TODO: Make Title Required
 // TODO: Have author field in there
@@ -12,6 +13,8 @@ import { bookRequest } from "../lib/fetchers";
 
 const Home: NextPage = () => {
   const mdRef = useRef<any>(null);
+  const [showFormatGuide, setShowFormatGuide] = useState<boolean>(false);
+  const [submissionStatus, setSubmissionStatus] = useState<string>("");
   function handleReceiveText(m: string) {
     mdRef.current.value = m;
   }
@@ -28,18 +31,18 @@ const Home: NextPage = () => {
       alert("Please enter a title for the book");
       return;
     }
+    setSubmissionStatus("");
     bookRequest({
       ...info,
       content,
     }, {
-      // TODO: Implement progress display etc
-      start: () => null,
-      progress: () => null,
-      error: () => null,
+      complete: () => setSubmissionStatus("Done"),
+      progress: (p) => setSubmissionStatus(p < 100 ? `Uploading ${p}%...` : "Processing..."),
+      error: () => setSubmissionStatus("Error"),
     });
   }
   return (
-    <div className="container" style={{ marginBottom: "50px" }}>
+    <div className="container" style={{ marginBottom: "50px", maxWidth: "950px" }}>
       <Head>
         <title>RTL EPUB Maker</title>
         <meta name="description" content="Easily create EPUB e-book files with proper RTL support" />
@@ -50,22 +53,41 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="mt-3">RTL EPUB Maker 📚</h1>
-      <p className="lead mb-4">Easily create EPUB e-book files with proper RTL support (🚧 in progress 👷)</p>
-      <h4>Book Content</h4>
+      <p className="lead mb-4">Easily create EPUB e-book files with proper RTL support</p>
+      <h4 className="mb-3">Book Content</h4>
       <DocReceiver handleReceiveText={handleReceiveText}/>
       <div className="mt-3">
-        <label htmlFor="mdTextarea" className="form-label">Markdown Content</label>
-        <textarea spellCheck="false" dir="rtl" ref={mdRef} className="form-control" id="mdTextarea" rows={15} />
+        <label htmlFor="mdTextarea" className="form-label d-flex flex-row justify-content-between align-items-center">
+          <div>Text in Markdown</div>
+          <div>
+            <button type="button" className="btn btn-sm btn-light" onClick={() => setShowFormatGuide(true)}>
+              📖 Formatting Guide
+            </button>
+          </div>
+        </label>
+        <textarea
+          placeholder="or paste book content here..."
+          spellCheck="false"
+          dir="rtl"
+          ref={mdRef}
+          className="form-control"
+          id="mdTextarea"
+          rows={15}
+        />
       </div>
       <div style={{ textAlign: "right" }}>
         <button type="button" className="btn btn-sm btn-light mt-2" onClick={clearText}>Clear</button>
       </div>
       <h4>Book Metadata</h4>
       <BookInfoInput handleSubmit={handleSubmit} />
+      <div>
+        <samp>{submissionStatus}</samp>
+      </div>
       <div className="text-center mt-4 text-muted">
         <p className="lead">Made by <a className="em-link" href="https://lingdocs.com">LingDocs.com</a></p>
         <p>Submissions are private. Nothing is kept on the server. See the <a className="em-link" href="https://github.com/lingdocs/rtl-epub-maker">source code here</a>.</p>
       </div>
+      <FormatGuideModal show={showFormatGuide} onHide={() => setShowFormatGuide(false)} />
     </div>
   )
 }

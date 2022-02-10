@@ -1,15 +1,24 @@
+import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { uploadDoc } from "../lib/fetchers";
+
+const textFormats = [
+    ".doc", ".docx", ".md", ".txt", "text/*",
+    "application/vnd.oasis.opendocument.text", ".odt",
+    "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".rtf"
+]
 
 function DocReceiver({ handleReceiveText }: {
     handleReceiveText: (content: string) => void,
 }) {
+    const [state, setState] = useState<string>("");
     function onDrop(files: File[]) {
         uploadDoc(files[0], {
-            start: () => null,
-            error: () => null,
-            progress: () => null,
+            error: () => setState("Error"),
+            progress: (p) => setState(p < 100 ? `Uploading ${p}%...` : "Processing..."),
             complete: (m: string) => {
+                setState("");
                 handleReceiveText(m);
             }
         })
@@ -17,11 +26,13 @@ function DocReceiver({ handleReceiveText }: {
     const {getRootProps, getInputProps, isDragActive} = useDropzone({
         onDrop,
         multiple: false,
-        // accept: [".doc", ".docx", ".md", ".txt", "text/*", ""],
+        accept: textFormats,
     });
     return <div {...getRootProps()} className="clickable d-flex flex-row align-items-center justify-content-center" style={{ padding: "2rem 1rem", border: "2px dashed grey", textAlign: "center", backgroundColor: isDragActive ? "#34a8eb" : "inherit" }}>
             <input {...getInputProps()} />
-            <div className="text-muted">Add Text/Markdown File or Word Doc</div>
+            <div className="text-muted">
+                {state ? state : "Drag file or click to add text file/document"}
+            </div>
     </div>;
 }
 

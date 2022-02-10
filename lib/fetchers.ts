@@ -11,10 +11,10 @@ export function bookRequest(req: {
     content: string,
     cover?: File,
 }, callback: {
-    start: (upload: { cancel: () => void }) => void,
     progress: (percentage: number) => void,
     error: () => void,
-}) {
+    complete: () => void,
+}): { cancel: () => void } {
     const formData = new FormData();
     const xhr = new XMLHttpRequest();
     xhr.responseType = "blob";
@@ -24,6 +24,7 @@ export function bookRequest(req: {
         formData.append("file", req.cover);
     }
     xhr.onload = () => {
+        callback.complete();
         const url = window.URL.createObjectURL(xhr.response);
         const a = document.createElement('a');
         a.href = url;
@@ -45,15 +46,14 @@ export function bookRequest(req: {
     function cancel() {
         xhr.abort();
     }
-    callback.start({ cancel });
+    return { cancel };
 }
 
 export function uploadDoc(file: File, callback: {
-    start: (upload: { cancel: () => void }) => void,
     progress: (percentage: number) => void,
     error: () => void,
     complete: (markdown: string) => void,
-}) {
+}): { cancel: () => void } {
     const formData = new FormData();
     const xhr = new XMLHttpRequest();
     formData.append("file", file);
@@ -79,5 +79,5 @@ export function uploadDoc(file: File, callback: {
     function cancel() {
         xhr.abort();
     }
-    callback.start({ cancel });
+    return { cancel };
 }

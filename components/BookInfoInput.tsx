@@ -6,15 +6,20 @@ const requiredFields = [
     "title",
 ];
 
-const possibleFields = [
+const suggestedFields = [
+    "author",
+]
+
+const otherFields = [
     "date",
     "description",
     "rights",
     "belongs-to-collection",
-    "author",
     "editor",
     "translator",
-]
+];
+
+const possibleFields = [...suggestedFields, ...otherFields];
 
 type Option = {
     value: string,
@@ -28,8 +33,8 @@ const baseSettings = {
 
 function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: Frontmatter, cover: File | undefined }) => void }) {
     const coverRef = useRef<any>(null);
-    const [fieldsChosen, setFieldsChosen] = useState<string[]>([]);
-    const [state, setState] = useState<Frontmatter>(Object.assign({}, ...requiredFields.map(f => ({ [f]: "" }))));
+    const [fieldsChosen, setFieldsChosen] = useState<string[]>(suggestedFields);
+    const [state, setState] = useState<Frontmatter>({});
     const fields = [...requiredFields, ...fieldsChosen];
     const availableFields = possibleFields.filter(f => !fieldsChosen.includes(f));
     const availableFieldsOptions = availableFields.map((f): Option => ({
@@ -71,15 +76,18 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
     }
     function submit() {
         const cover = coverRef.current.files[0] as (File | undefined);
+        const frontmatter = {
+            ...state,
+            ...baseSettings,
+        };
+        console.log({ frontmatter });
+        return;
         handleSubmit({
-            frontmatter: {
-                ...state,
-                ...baseSettings,
-            },
+            frontmatter,
             cover,
         });
     }
-    return <div style={{ maxWidth: "500px" }}>
+    return <div style={{ maxWidth: "600px" }}>
         <div className="my-3">
             <label htmlFor="cover-file" className="form-label">cover image <span className="text-muted">(.jpg or .png less than 5mb)</span></label>
             <input multiple={false} ref={coverRef} className="form-control" type="file" id="cover-file" accept="image/jpeg,image/png"/>
@@ -94,7 +102,7 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
                     </span>}
                     <span>{field}</span>
                 </label>
-                <input onChange={handleFieldChange} type="text" className="form-control" id={field} name={field} value={state[field]} />
+                <input onChange={handleFieldChange} type="text" className="form-control" id={field} name={field} value={state[field] || ""} />
             </div>
         ))}
         <div className="mt-4 mb-2">add fields:</div>
@@ -110,7 +118,7 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
           options={availableFieldsOptions}
         />
         <LanguageSelect value={state.lang} onChange={handleLanguageChange} />
-        <button onClick={submit} type="button" className="btn btn-lg btn-primary my-4">Create .epub</button>
+        <button onClick={submit} type="button" className="btn btn-lg btn-primary my-4">Download .epub</button>
     </div>
 }
 
