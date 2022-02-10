@@ -13,13 +13,14 @@ const languageOptions = [
 ];
 
 function LanguageSelect({ value, onChange }: {
-    value: string | null,
+    value: string | undefined,
     onChange: (language: string | null) => void,
 }) {
     const [showingOther, setShowingOther] = useState<boolean>(false);
     function handleChange(o: { value: string, label: string }) {
         if (!o) {
             onChange(null);
+            if (showingOther) setShowingOther(false);
         } else if (o.value === "other") {
             setShowingOther(true);
             onChange(null);
@@ -34,7 +35,7 @@ function LanguageSelect({ value, onChange }: {
           className="basic-single"
           classNamePrefix="select"
           isClearable={true}
-          value={typeof value === "number" ? null : languageOptions.find(o => value === o.value)}
+          value={languageOptions.find(o => value === o.value)}
           isSearchable
           // @ts-ignore
           onChange={handleChange}

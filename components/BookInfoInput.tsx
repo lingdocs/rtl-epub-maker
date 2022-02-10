@@ -58,9 +58,8 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
     function handleLanguageChange(lang: string | null) {
         setState(s => {
             if (!lang) {
-                delete s.lang;
-                delete s.language;
-                return s
+                const { lang, language, ...rest } = s;
+                return rest;
             }
             return {
                 ...s,
@@ -80,8 +79,6 @@ function BookInfoInput({ handleSubmit }: { handleSubmit: (info: { frontmatter: F
             cover,
         });
     }
-    console.log(state);
-    console.log("will render");
     return <div style={{ maxWidth: "500px" }}>
         <div className="my-3">
             <label htmlFor="cover-file" className="form-label">cover image <span className="text-muted">(.jpg or .png less than 5mb)</span></label>

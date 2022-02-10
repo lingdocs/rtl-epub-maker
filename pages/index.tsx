@@ -20,6 +20,14 @@ const Home: NextPage = () => {
   }
   function handleSubmit(info: { frontmatter: Frontmatter, cover: File | undefined }) {
     const content = mdRef.current.value as string;
+    if (!content) {
+      alert("Please enter some content for the book");
+      return;
+    }
+    if (!info.frontmatter.title) {
+      alert("Please enter a title for the book");
+      return;
+    }
     bookRequest({
       ...info,
       content,
