@@ -5,6 +5,7 @@ import BookInfoInput from "../components/BookInfoInput";
 import DocReceiver from "../components/DocReceiver";
 import { bookRequest } from "../lib/fetchers";
 import FormatGuideModal from "../components/FormatGuideModal";
+import Script from "next/script";
 
 // TODO: Make Title Required
 // TODO: Have author field in there
@@ -52,6 +53,17 @@ const Home: NextPage = () => {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-4L08QX2FXM"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-4L08QX2FXM', { 'anonymize_ip': true });
+      `}</Script>
       <h1 className="mt-3">RTL EPUB Maker 📚</h1>
       <p className="lead mb-4">Easily create EPUB e-book files with proper RTL support</p>
       <h4 className="mb-3">Book Content</h4>
