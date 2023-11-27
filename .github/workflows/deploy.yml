@@ -24,14 +24,15 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           source: "./*"
-          target: "."
-      # - name: unpack tarball and restart app
-      #   uses: appleboy/ssh-action@v1.0.0
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     key: ${{ secrets.KEY }}
-      #     port: ${{ secrets.PORT }}
-      #     script:
-
-      #     pm2 restart account
+          target: "rtl-epub-maker"
+      - name: unpack tarball and restart app
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -rf apps/live/rtl-epub-maker
+            mv rtl-epub-maker apps/live
+            pm2 restart account
