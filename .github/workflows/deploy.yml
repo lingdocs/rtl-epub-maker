@@ -11,8 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
+      - name: build docker and test
+        run: |
           npm install
+          npx playwright install
           docker build . -t rtl-epub-maker
           npm run test
       - name: ssh into server and update
