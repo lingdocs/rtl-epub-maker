@@ -10,29 +10,38 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
           npm install
           npm run build
-          npm prune --production
-          rm -rf .git
-      - name: copy tarball to server
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          port: ${{ secrets.PORT }}
-          key: ${{ secrets.KEY }}
-          source: "./*"
-          target: "rtl-epub-maker"
-      - name: unpack tarball and restart app
+          # npm prune --production
+          # rm -rf .git
+      - name: ssh into server and update
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: |
-            rm -rf apps/live/rtl-epub-maker
-            mv rtl-epub-maker apps/live
-            pm2 restart account
+          script: ls
+      # use ssh k
+      # - name: copy tarball to server
+      #   uses: appleboy/scp-action@v0.1.4
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     port: ${{ secrets.PORT }}
+      #     key: ${{ secrets.KEY }}
+      #     source: "./*"
+      #     target: "rtl-epub-maker"
+      # - name: unpack tarball and restart app
+      #   uses: appleboy/ssh-action@v1.0.0
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     key: ${{ secrets.KEY }}
+      #     port: ${{ secrets.PORT }}
+      #     script: |
+      #       rm -rf apps/live/rtl-epub-maker
+      #       mv rtl-epub-maker apps/live
+      #       pm2 restart rtl-epub-maker

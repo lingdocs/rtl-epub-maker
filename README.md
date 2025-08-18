@@ -14,7 +14,7 @@ You can run this app on your own machine or host it on a server.
 
 requires:
 
-- Node.js 12.22.0 or later
+- Node >= 18
 - [pandoc](https://pandoc.org/installing.html)
 
 To run in dev mode:
