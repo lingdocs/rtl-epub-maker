@@ -38,4 +38,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: ls
+          script: |
+            cd apps/live/rtl-epub/maker
+            docker compose up
