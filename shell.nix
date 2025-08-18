@@ -5,7 +5,7 @@ in
 
 pkgs.mkShellNoCC {
   packages = with pkgs; [
-    nodejs
-    git
+    nodejs,
+    pandoc
   ];
 }
