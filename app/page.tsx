@@ -72,7 +72,7 @@ export default function Home() {
     </div>
     <div className="text-center mt-4 text-muted">
       <p className="lead">Made by <a className="em-link" href="https://lingdocs.com">LingDocs</a></p>
-      <p>Submissions are private. Nothing you upload or type is kept on the server. See the <a className="em-link" href="https://github.com/lingdocs/rtl-epub-maker">source code here</a>.</p>
+      <p>Submissions are private. Nothing is saved on the server. See the <a className="em-link" href="https://github.com/lingdocs/rtl-epub-maker">source code here</a>.</p>
     </div>
     <FormatGuideModal show={showFormatGuide} onHide={() => setShowFormatGuide(false)} />
   </div>

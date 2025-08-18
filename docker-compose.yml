@@ -1,6 +1,6 @@
 services:
   app:
-    image: lingdocs/rtl-epub-maker
+    image: lingdocs/rtl-epub-maker:latest
     restart: always
     ports:
       - 127.0.0.1:3001:3001
