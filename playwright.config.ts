@@ -69,11 +69,11 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: "docker run -p 127.0.0.1:3000:3001 rtl-epub-maker",
-    url: "http://localhost:3000",
-    reuseExistingServer: true,
-    stderr: "pipe",
-    stdout: "pipe",
-  },
+  // webServer: {
+  //   command: "docker run -p 127.0.0.1:3000:3001 rtl-epub-maker",
+  //   url: "http://localhost:3000",
+  //   reuseExistingServer: true,
+  //   stderr: "pipe",
+  //   stdout: "pipe",
+  // },
 });
