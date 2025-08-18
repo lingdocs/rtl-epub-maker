@@ -38,6 +38,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: |
-            cd apps/live/rtl-epub-maker
-            docker compose up
+          script: pm2 restart rtl-epub-maker
